@@ -8,20 +8,21 @@ namespace Maksymov_IKM_721B_project
 {
     internal class MajorWork
     {
-        // Вміст робочого об'єкта
-        // Поля
-        private string Data; //вхідні дані
-        private string Result; // Поле результату
-                               // Методи
-        public void Write(string D)// метод запису даних в об'єкт.
+        // Vmist robochoho obiekta
+        // Polia
+        private string Data; // vkhidni dani
+        private string Result; // Pole rezultatu
+
+        // Metody
+        public void Write(string D)// metod zapysu danykh v obiekt.
         {
             this.Data = D;
         }
         public string Read()
         {
-            return this.Result;// метод відображення результату
+            return this.Result;// metod vidobrazhennia rezultatu
         }
-        public void Task() // метод реалізації програмного завдання
+        public void Task() // metod realizatsii prohramnoho zavdannia
         {
             if (this.Data.Length > 5)
             {

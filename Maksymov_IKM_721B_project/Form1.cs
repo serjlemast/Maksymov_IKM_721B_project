@@ -2,7 +2,9 @@ namespace Maksymov_IKM_721B_project
 {
     public partial class Form1 : Form
     {
-        private bool Mode; // Режим дозволу / заборони введення даних
+        private bool Mode; // Rezhym dozvolu / zaborony vvedennia danykh
+        private MajorWork MajorObject; // Stvorennia obiekta klasu MajorWork
+
 
         public Form1()
         {
@@ -18,25 +20,28 @@ namespace Maksymov_IKM_721B_project
         {
             if (Mode)
             {
-                tbInput.Enabled = true;// Режим дозволу введення
+                tbInput.Enabled = true;// Rezhym dozvolu vvedennia
                 tbInput.Focus();
                 tClock.Start();
-                bStart.Text = "Стоп"; // зміна тексту на кнопці на "Стоп"
+                bStart.Text = "Stop"; // zmina tekstu na knoptsi na "Stop"
                 this.Mode = false;
             }
             else
             {
-                tbInput.Enabled = false;// Режим заборони введення
+                tbInput.Enabled = false;// Rezhym zaborony vvedennia
                 tClock.Stop();
-                bStart.Text = "Пуск";// зміна тексту на кнопці на "Пуск"
+                bStart.Text = "Pusk";// zmina tekstu na knoptsi na "Pusk"
                 this.Mode = true;
+                MajorObject.Write(tbInput.Text);// Zapys danykh u obiekt
+                MajorObject.Task();// Obrobka danykh
+                label1.Text = MajorObject.Read();// Vidobrazhennia rezultatu
             }
         }
 
         private void tClock_Tick(object sender, EventArgs e)
         {
             tClock.Stop();
-            MessageBox.Show("Минуло 25 секунд", "Увага");// Виведення повідомлення "Минуло 25 секунд" на екран
+            MessageBox.Show("Mynulo 25 sekund", "Uvaha");// Vyvedennia povidomlennia "Mynulo 25 sekund" na ekran
             tClock.Start();
         }
 
@@ -47,7 +52,11 @@ namespace Maksymov_IKM_721B_project
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MajorObject = new MajorWork();
             this.Mode = true;
+            About A = new About();
+            A.tAbout.Start();
+            A.ShowDialog(); // відображення діалогового вікна About
         }
 
         private void tbInput_KeyPress(object sender, KeyPressEventArgs e)
@@ -61,7 +70,7 @@ namespace Maksymov_IKM_721B_project
             else
             {
                 tClock.Stop();
-                MessageBox.Show("Неправильний символ", "Помилка");
+                MessageBox.Show("Nepravylnyi symvol", "Pomylka");
                 tClock.Start();
                 e.KeyChar = (char)0;
             }

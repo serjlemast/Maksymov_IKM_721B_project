@@ -63,7 +63,6 @@
             tbInput.Name = "tbInput";
             tbInput.Size = new Size(100, 23);
             tbInput.TabIndex = 2;
-            tbInput.Text = "tbInput";
             tbInput.TextChanged += textBox1_TextChanged;
             tbInput.KeyPress += tbInput_KeyPress;
             // 
@@ -82,6 +81,7 @@
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
+            FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();

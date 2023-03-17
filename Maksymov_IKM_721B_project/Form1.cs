@@ -53,6 +53,7 @@ namespace Maksymov_IKM_721B_project
         private void Form1_Load(object sender, EventArgs e)
         {
             MajorObject = new MajorWork();
+            MajorObject.SetTime();
             this.Mode = true;
             About A = new About();
             A.tAbout.Start();
@@ -74,6 +75,13 @@ namespace Maksymov_IKM_721B_project
                 tClock.Start();
                 e.KeyChar = (char)0;
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            string s;
+            s = (System.DateTime.Now - MajorObject.GetTime()).ToString();
+            MessageBox.Show(s, "Час роботи програми"); // Vyvedennia chasu roboty prohramy i povidomlennia "Chas roboty prohramy" na ekran
         }
     }
 }

@@ -10,10 +10,19 @@ namespace Maksymov_IKM_721B_project
     {
         // Vmist robochoho obiekta
         // Polia
+        private System.DateTime TimeBegin; // chas pochatku roboty prohramy
         private string Data; // vkhidni dani
         private string Result; // Pole rezultatu
 
         // Metody
+        public void SetTime() // metod zapysu chasu pochatku roboty prohramy
+        {
+            this.TimeBegin = System.DateTime.Now;
+        }
+        public System.DateTime GetTime() // Metod otrymannia chasu zavershennia prohramy
+        {
+            return this.TimeBegin;
+        }
         public void Write(string D)// metod zapysu danykh v obiekt.
         {
             this.Data = D;

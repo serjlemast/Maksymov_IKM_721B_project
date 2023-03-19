@@ -1,3 +1,5 @@
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+
 namespace Maksymov_IKM_721B_project
 {
     public partial class Form1 : Form
@@ -25,6 +27,7 @@ namespace Maksymov_IKM_721B_project
                 tClock.Start();
                 bStart.Text = "Stop"; // zmina tekstu na knoptsi na "Stop"
                 this.Mode = false;
+                puskToolStripMenuItem.Text = "Stop";
             }
             else
             {
@@ -35,6 +38,7 @@ namespace Maksymov_IKM_721B_project
                 MajorObject.Write(tbInput.Text);// Zapys danykh u obiekt
                 MajorObject.Task();// Obrobka danykh
                 label1.Text = MajorObject.Read();// Vidobrazhennia rezultatu
+                puskToolStripMenuItem.Text = "Start";
             }
         }
 
@@ -81,7 +85,69 @@ namespace Maksymov_IKM_721B_project
         {
             string s;
             s = (System.DateTime.Now - MajorObject.GetTime()).ToString();
-            MessageBox.Show(s, "Час роботи програми"); // Vyvedennia chasu roboty prohramy i povidomlennia "Chas roboty prohramy" na ekran
+            MessageBox.Show(s, "Час роботи програми"); // Vyvedennia chasu roboty prohramy i povidomlennia "Chas roboty prohramy" na ekran\
+        }
+
+        private void работаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void файлToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ofdOpen.ShowDialog() == DialogResult.OK) // Виклик діалогового вікна відкриття файлу
+            {
+                MessageBox.Show(ofdOpen.FileName);
+            }
+        }
+
+        private void puskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void abouteProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About A = new About();
+            A.ShowDialog();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sfdSave.ShowDialog() == DialogResult.OK)// Виклик діалогового вікна збереження файлу
+            {
+                MessageBox.Show(sfdSave.FileName);
+            }
+        }
+
+        private void proNakopychuvachiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string[] disks = System.IO.Directory.GetLogicalDrives(); // Строковий масив з логічніх дисків
+            string disk = "";
+            for (int i = 0; i < disks.Length; i++)
+            {
+                try
+                {
+                    System.IO.DriveInfo D = new System.IO.DriveInfo(disks[i]);
+                    disk += D.Name + "-" + D.TotalSize.ToString() + "-" + D.TotalFreeSpace.ToString()
+                    + (char)13;// змінній присвоюється ім’я диска, загальна кількість місця и вільне місце на диску
+                }
+                catch
+                {
+                    disk += disks[i] + "- не готовий" + (char)13; // якщо пристрій не готовий, то виведення на екран ім’я пристрою і повідомлення «не готовий»
+                }
+            }
+            MessageBox.Show(disk, "Накопичувачі");
         }
     }
 }

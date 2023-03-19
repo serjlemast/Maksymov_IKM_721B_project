@@ -14,6 +14,17 @@ namespace Maksymov_IKM_721B_project
         private string Data; // vkhidni dani
         private string Result; // Pole rezultatu
 
+        private string SaveFileName;// im’ia failu dlia zapysu
+        private string OpenFileName;// im’ia failu dlia chytannia
+        public void WriteSaveFileName(string S)// metod zapysu danykh v obiekt
+        {
+            this.SaveFileName = S;// zapamiataty im’ia failu dlia zapysu
+        }
+        public void WriteOpenFileName(string S)
+        {
+            this.OpenFileName = S;// zapamiataty im’ia failu dlia vidkryttia
+        }
+
         // Metody
         public void SetTime() // metod zapysu chasu pochatku roboty prohramy
         {

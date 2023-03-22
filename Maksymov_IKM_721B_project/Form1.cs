@@ -58,10 +58,11 @@ namespace Maksymov_IKM_721B_project
         {
             MajorObject = new MajorWork();
             MajorObject.SetTime();
+            MajorObject.Modify = false;// zaborona zapysu
             this.Mode = true;
             About A = new About();
             A.tAbout.Start();
-            A.ShowDialog(); // відображення діалогового вікна About
+            A.ShowDialog(); // vidobrazhennia dialohovoho vikna About
         }
 
         private void tbInput_KeyPress(object sender, KeyPressEventArgs e)
@@ -124,15 +125,16 @@ namespace Maksymov_IKM_721B_project
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sfdSave.ShowDialog() == DialogResult.OK)// Виклик діалогового вікна збереження файлу
+            if (sfdSave.ShowDialog() == DialogResult.OK)// Vyklyk dialohovoho vikna zberezhennia failu
             {
-                MessageBox.Show(sfdSave.FileName);
+                MajorObject.WriteSaveFileName(sfdSave.FileName); // napysannia imeni failu
+                MajorObject.SaveToFile(); // metod zberezhennia v fail
             }
         }
 
         private void proNakopychuvachiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string[] disks = System.IO.Directory.GetLogicalDrives(); // Строковий масив з логічніх дисків
+            string[] disks = System.IO.Directory.GetLogicalDrives(); // Strokovyi masyv z lohichnikh dyskiv
             string disk = "";
             for (int i = 0; i < disks.Length; i++)
             {

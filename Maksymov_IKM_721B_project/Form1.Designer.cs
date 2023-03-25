@@ -98,6 +98,7 @@
             menuStrip1.Size = new Size(800, 24);
             menuStrip1.TabIndex = 3;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
             // 
             // файлToolStripMenuItem
             // 
@@ -114,6 +115,7 @@
             newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
             newToolStripMenuItem.Size = new Size(180, 22);
             newToolStripMenuItem.Text = "New";
+            newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
@@ -139,6 +141,7 @@
             saveToolStripMenuItem1.ShortcutKeys = Keys.Control | Keys.S;
             saveToolStripMenuItem1.Size = new Size(180, 22);
             saveToolStripMenuItem1.Text = "Save";
+            saveToolStripMenuItem1.Click += saveToolStripMenuItem1_Click;
             // 
             // saveAsToolStripMenuItem
             // 
@@ -198,13 +201,18 @@
             // abouteProjectToolStripMenuItem
             // 
             abouteProjectToolStripMenuItem.Name = "abouteProjectToolStripMenuItem";
-            abouteProjectToolStripMenuItem.Size = new Size(180, 22);
+            abouteProjectToolStripMenuItem.Size = new Size(147, 22);
             abouteProjectToolStripMenuItem.Text = "About project";
             abouteProjectToolStripMenuItem.Click += abouteProjectToolStripMenuItem_Click;
+            // 
+            // sfdSave
+            // 
+            sfdSave.Filter = "|*.SoM|All files|*.*";
             // 
             // ofdOpen
             // 
             ofdOpen.FileName = "openFileDialog1";
+            ofdOpen.Filter = "|*.SoM|All files|*.*";
             // 
             // Form1
             // 
@@ -218,6 +226,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Form1";
+            FormClosing += Form1_FormClosing;
             FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);

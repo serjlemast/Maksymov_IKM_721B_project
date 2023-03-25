@@ -31,6 +31,77 @@ namespace Maksymov_IKM_721B_project
         }
 
         // Metody
+        public void NewRec() // новий запис
+        {
+            this.Data = ""; // "" - ознака порожнього рядка
+            this.Result = null; // для string- null
+        }
+        public bool SaveFileNameExists()
+        {
+            if (this.SaveFileName == null)
+                return false;
+            else return true;
+        }
+        public void Generator() // metod formuvannia kliuchovoho polia
+        {
+            try
+            {
+                if (!File.Exists(this.SaveFileName)) // isnuie fail?
+                {
+                    Key = 1;
+                    return;
+                }
+                Stream S; // stvorennia potoku
+                S = File.Open(this.SaveFileName, FileMode.Open); // Vidkryttia failu
+                Buffer D;
+                object O; // buferna zminna dlia kontroliu formatu
+                BinaryFormatter BF = new BinaryFormatter(); // stvorennia elementu dlia formatuvannia
+                while (S.Position < S.Length)
+                {
+                    O = BF.Deserialize(S);
+                    D = O as Buffer;
+                    if (D == null) break;
+                    Key = D.Key;
+                }
+                Key++;
+                S.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Pomylka failu"); // Vyvedennia na ekran povidomlennia "Pomylka failu"
+            }
+        }
+
+        public void ReadFromFile(System.Windows.Forms.DataGridView DG) // zchytuvannia z failu
+        {
+            try
+            {
+                if (!File.Exists(this.OpenFileName))
+                {
+                    MessageBox.Show("Failu nemaie"); // Vyvedennia na ekran povidomlennia "failu nemaie"
+                    return;
+                }
+                Stream S; // stvorennia potoku
+                S = File.Open(this.OpenFileName, FileMode.Open); // zchytuvannia danykh z failu
+                Buffer D;
+                object O; // buferna zminna dlia kontroliu formatu
+                BinaryFormatter BF = new BinaryFormatter(); // stvorennia obiektu dlia formatuvannia
+
+                while (S.Position < S.Length)
+                {
+                    O = BF.Deserialize(S); // deserializatsiia
+                    D = O as Buffer;
+                    if (D == null) break;
+                    // Vyvedennia danykh na ekran
+                }
+                S.Close(); // zakryttia
+            }
+            catch
+            {
+                MessageBox.Show("Pomylka failu"); // Vyvedennia na ekran povidomlennia "Pomylka failu"
+            }
+        } // ReadFromFile zakinchyvsia
+
         public void SetTime() // metod zapysu chasu pochatku roboty prohramy
         {
             this.TimeBegin = System.DateTime.Now;
@@ -75,6 +146,7 @@ namespace Maksymov_IKM_721B_project
                 D.Data = this.Data;
                 D.Result = Convert.ToString(this.Result);
                 D.Key = Key;
+                Key++;
                 BinaryFormatter BF = new BinaryFormatter(); // stvorennia obiekta dlia formatuvannia BF.Serialize(S, D);
                 S.Flush(); // ochyshchennia bufera potoku
                 S.Close(); // zakryttia potoku

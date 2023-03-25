@@ -128,6 +128,7 @@ namespace Maksymov_IKM_721B_project
             if (sfdSave.ShowDialog() == DialogResult.OK)// Vyklyk dialohovoho vikna zberezhennia failu
             {
                 MajorObject.WriteSaveFileName(sfdSave.FileName); // napysannia imeni failu
+                MajorObject.Generator();
                 MajorObject.SaveToFile(); // metod zberezhennia v fail
             }
         }
@@ -150,6 +151,34 @@ namespace Maksymov_IKM_721B_project
                 }
             }
             MessageBox.Show(disk, "Накопичувачі");
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (MajorObject.SaveFileNameExists()) // zadane im’ia failu isnuie?
+                MajorObject.SaveToFile(); // zberehty dani v fail
+            else
+                saveAsToolStripMenuItem_Click(sender, e); //
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MajorObject.NewRec();
+            tbInput.Clear();// ochystyty vmist tekstu
+            label1.Text = "";
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MajorObject.Modify)
+                if (MessageBox.Show("Dani ne buly zberezheni. Prodovzhyty vykhid?", "UVAHA",
+                MessageBoxButtons.YesNo) == DialogResult.No)
+                    e.Cancel = true; // prypynyty zakryttia
         }
     }
 }

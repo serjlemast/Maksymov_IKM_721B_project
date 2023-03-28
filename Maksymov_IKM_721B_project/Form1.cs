@@ -13,6 +13,15 @@ namespace Maksymov_IKM_721B_project
             InitializeComponent();
         }
 
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ofdOpen.ShowDialog() == DialogResult.OK) // Vyklyk dialohu vidkryttia failu
+            {
+                MajorObject.WriteOpenFileName(ofdOpen.FileName); // vidkryttia failu
+                MajorObject.ReadFromFile(dgwOpen); // chytannia danykh z failu
+            }
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -89,27 +98,23 @@ namespace Maksymov_IKM_721B_project
             MessageBox.Show(s, "Час роботи програми"); // Vyvedennia chasu roboty prohramy i povidomlennia "Chas roboty prohramy" na ekran\
         }
 
-        private void работаToolStripMenuItem_Click(object sender, EventArgs e)
+        private void workToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void файлToolStripMenuItem_Click(object sender, EventArgs e)
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ofdOpen.ShowDialog() == DialogResult.OK) // Виклик діалогового вікна відкриття файлу
+            if (ofdOpen.ShowDialog() == DialogResult.OK) // Vyklyk dialohovoho vikna vidkryttia failu
             {
                 MessageBox.Show(ofdOpen.FileName);
             }
-        }
-
-        private void puskToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -179,6 +184,11 @@ namespace Maksymov_IKM_721B_project
                 if (MessageBox.Show("Dani ne buly zberezheni. Prodovzhyty vykhid?", "UVAHA",
                 MessageBoxButtons.YesNo) == DialogResult.No)
                     e.Cancel = true; // prypynyty zakryttia
+        }
+
+        private void bSearch_Click_1(object sender, EventArgs e)
+        {
+            MajorObject.Find(tbSearch.Text); //poshuk
         }
     }
 }

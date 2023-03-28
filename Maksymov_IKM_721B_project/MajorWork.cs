@@ -31,15 +31,76 @@ namespace Maksymov_IKM_721B_project
         }
 
         // Metody
-        public void NewRec() // новий запис
+        public void Find(string Num) // poshuk
         {
-            this.Data = ""; // "" - ознака порожнього рядка
-            this.Result = null; // для string- null
+            int N;
+            try
+            {
+                N = Convert.ToInt16(Num); // peretvorennia nomera riadka v int16 dlia vidobrazhennia
+            }
+            catch
+            {
+                MessageBox.Show("помилка пошукового запиту"); // Vyvedennia na ekran povidomlennia "pomylka poshukovoho zapytu"
+
+                return;
+            }
+
+            try
+            {
+                if (!File.Exists(this.OpenFileName))
+                {
+                    MessageBox.Show("файлу немає"); // Vyvedennia na ekran povidomlennia "failu nemaie"
+
+                    return;
+                }
+                Stream S; // stvorennia potoku
+                S = File.Open(this.OpenFileName, FileMode.Open); // vidkryttia failu
+                Buffer D;
+                object O; // buferna zminna dlia kontroliu formatu
+                BinaryFormatter BF = new BinaryFormatter(); // stvorennia obiekta dlia formatuvannia
+
+                while (S.Position < S.Length)
+                {
+                    O = BF.Deserialize(S);
+                    D = O as Buffer;
+                    if (D == null) break;
+                    if (D.Key == N) // perevirka dorivniuie chy nomer poshuku nomeru riadka v tablytsi
+
+                    {
+                        string ST;
+                        ST = "Запис містить:" + (char)13 + "No" + Num + "Вхідні дані:" +
+
+                        D.Data + "Результат:" + D.Result;
+
+                        MessageBox.Show(ST, "Запис знайдена"); // Vyvedennia na ekran povidomlennia "zapys mistyt", nomer, vkhidnykh danykh i rezultat
+
+                        S.Close();
+                        return;
+                    }
+                }
+                S.Close();
+                MessageBox.Show("Запис не знайдена"); // Vyvedennia na ekran povidomlennia "Zapys ne znaidena"
+            }
+            catch
+            {
+                MessageBox.Show("Помилка файлу"); // Vyvedennia na ekran povidomlennia "Pomylka failu"
+            }
+        } // Find zakinchyvsia
+
+        public void NewRec() // novyi zapys
+        {
+            this.Data = ""; // "" - oznaka porozhnoho riadka
+            this.Result = null; // dlia string- null
+            this.Key = 0;
+            this.SaveFileName = "";
+            this.OpenFileName = "";
         }
         public bool SaveFileNameExists()
         {
             if (this.SaveFileName == null)
+            {
                 return false;
+            }
             else return true;
         }
         public void Generator() // metod formuvannia kliuchovoho polia
@@ -87,13 +148,29 @@ namespace Maksymov_IKM_721B_project
                 object O; // buferna zminna dlia kontroliu formatu
                 BinaryFormatter BF = new BinaryFormatter(); // stvorennia obiektu dlia formatuvannia
 
+                // formuiemo tablytsiu
+                System.Data.DataTable MT = new System.Data.DataTable();
+                System.Data.DataColumn cKey = new System.Data.DataColumn("Key");// formuiemo kolonku "Kliuch"
+                System.Data.DataColumn cInput = new System.Data.DataColumn("Incoming_data");// formuiemo kolonku "Vkhidni dani"
+                System.Data.DataColumn cResult = new System.Data.DataColumn("Result");// formuiemo kolonku "Rezultat"
+
+                MT.Columns.Add(cKey);// dodavannia kliucha
+                MT.Columns.Add(cInput);// dodavannia vkhidnykh danykh
+                MT.Columns.Add(cResult);// dodavannia rezultatu
+
                 while (S.Position < S.Length)
                 {
                     O = BF.Deserialize(S); // deserializatsiia
                     D = O as Buffer;
                     if (D == null) break;
-                    // Vyvedennia danykh na ekran
+                    System.Data.DataRow MR;
+                    MR = MT.NewRow();
+                    MR["Key"] = D.Key; // Zanesennia v tablytsiu nomer
+                    MR["Incoming_data"] = D.Data; // Zanesennia v tablytsiu vkhidnykh danykh
+                    MR["Result"] = D.Result; // Zanesennia v tablytsiu rezultativ
+                    MT.Rows.Add(MR);
                 }
+                DG.DataSource = MT;
                 S.Close(); // zakryttia
             }
             catch
@@ -131,23 +208,27 @@ namespace Maksymov_IKM_721B_project
             }
             this.Modify = true; // Dozvil zapysu
         }
-        public void SaveToFile() // Запис даних до файлу
+        public void SaveToFile() // Zapys danykh do failu
         {
             if (!this.Modify)
                 return;
             try
             {
                 Stream S; // stvorennia potoku
-                if (File.Exists(this.SaveFileName))// isnuie fail?
+                if (File.Exists(this.SaveFileName)) // isnuie fail?
+                { 
                     S = File.Open(this.SaveFileName, FileMode.Append);// Vidkryttia failu dlia zberezhennia
-                else
+                }
+                else {
                     S = File.Open(this.SaveFileName, FileMode.Create);// stvoryty fail
+                }    
                 Buffer D = new Buffer(); // stvorennia bufernoi zminnoi
                 D.Data = this.Data;
                 D.Result = Convert.ToString(this.Result);
                 D.Key = Key;
                 Key++;
-                BinaryFormatter BF = new BinaryFormatter(); // stvorennia obiekta dlia formatuvannia BF.Serialize(S, D);
+                BinaryFormatter BF = new BinaryFormatter(); // stvorennia obiekta dlia formatuvannia
+                BF.Serialize(S, D);
                 S.Flush(); // ochyshchennia bufera potoku
                 S.Close(); // zakryttia potoku
                 this.Modify = false; // Zaborona povtornoho zapysu

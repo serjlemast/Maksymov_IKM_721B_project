@@ -55,14 +55,22 @@
             dgwOpen = new DataGridView();
             bSearch = new Button();
             tbSearch = new TextBox();
+            toolTip1 = new ToolTip(components);
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            statusStrip1 = new StatusStrip();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwOpen).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(56, 69);
+            label1.Location = new Point(92, 27);
             label1.Name = "label1";
             label1.Size = new Size(60, 15);
             label1.TabIndex = 0;
@@ -72,7 +80,7 @@
             // bStart
             // 
             bStart.BackColor = SystemColors.ActiveBorder;
-            bStart.Location = new Point(56, 116);
+            bStart.Location = new Point(92, 99);
             bStart.Name = "bStart";
             bStart.Size = new Size(75, 23);
             bStart.TabIndex = 1;
@@ -83,7 +91,7 @@
             // tbInput
             // 
             tbInput.Enabled = false;
-            tbInput.Location = new Point(56, 87);
+            tbInput.Location = new Point(92, 56);
             tbInput.Name = "tbInput";
             tbInput.Size = new Size(100, 23);
             tbInput.TabIndex = 2;
@@ -228,15 +236,15 @@
             // dgwOpen
             // 
             dgwOpen.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgwOpen.Location = new Point(195, 69);
+            dgwOpen.Location = new Point(8, 19);
             dgwOpen.Name = "dgwOpen";
             dgwOpen.RowTemplate.Height = 25;
-            dgwOpen.Size = new Size(493, 150);
+            dgwOpen.Size = new Size(776, 150);
             dgwOpen.TabIndex = 4;
             // 
             // bSearch
             // 
-            bSearch.Location = new Point(195, 225);
+            bSearch.Location = new Point(8, 204);
             bSearch.Name = "bSearch";
             bSearch.Size = new Size(75, 23);
             bSearch.TabIndex = 5;
@@ -246,22 +254,62 @@
             // 
             // tbSearch
             // 
-            tbSearch.Location = new Point(195, 254);
+            tbSearch.Location = new Point(8, 175);
             tbSearch.Name = "tbSearch";
-            tbSearch.Size = new Size(100, 23);
+            tbSearch.Size = new Size(164, 23);
             tbSearch.TabIndex = 6;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(0, 27);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(800, 422);
+            tabControl1.TabIndex = 7;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(statusStrip1);
+            tabPage1.Controls.Add(label1);
+            tabPage1.Controls.Add(tbInput);
+            tabPage1.Controls.Add(bStart);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(792, 394);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Vvedennia danykh";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(dgwOpen);
+            tabPage2.Controls.Add(tbSearch);
+            tabPage2.Controls.Add(bSearch);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(792, 394);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Robota z failamy";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.Location = new Point(3, 369);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(786, 22);
+            statusStrip1.TabIndex = 3;
+            statusStrip1.Text = "statusStrip1";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(tbSearch);
-            Controls.Add(bSearch);
-            Controls.Add(dgwOpen);
-            Controls.Add(tbInput);
-            Controls.Add(bStart);
-            Controls.Add(label1);
+            Controls.Add(tabControl1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
@@ -272,6 +320,11 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgwOpen).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -304,5 +357,10 @@
         private Button bSearch;
         private TextBox tbSearch;
         private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolTip toolTip1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private StatusStrip statusStrip1;
+        private TabPage tabPage2;
     }
 }

@@ -7,10 +7,31 @@ namespace Maksymov_IKM_721B_project
         private bool Mode; // Rezhym dozvolu / zaborony vvedennia danykh
         private MajorWork MajorObject; // Stvorennia obiekta klasu MajorWork
 
+        ToolStripLabel dateLabel;
+        ToolStripLabel timeLabel;
+        ToolStripLabel infoLabel;
+        System.Windows.Forms.Timer timer;
 
         public Form1()
         {
             InitializeComponent();
+            infoLabel = new ToolStripLabel();
+            infoLabel.Text = "Текущие дата и время:";
+            dateLabel = new ToolStripLabel();
+            timeLabel = new ToolStripLabel();
+            statusStrip1.Items.Add(infoLabel);
+            statusStrip1.Items.Add(dateLabel);
+            statusStrip1.Items.Add(timeLabel);
+            timer = new System.Windows.Forms.Timer() { Interval = 1000 };
+            timer.Tick += timer_Tick;
+            timer.Start();
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            dateLabel.Text = DateTime.Now.ToLongDateString();
+
+            timeLabel.Text = DateTime.Now.ToLongTimeString();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -72,6 +93,9 @@ namespace Maksymov_IKM_721B_project
             About A = new About();
             A.tAbout.Start();
             A.ShowDialog(); // vidobrazhennia dialohovoho vikna About
+
+            toolTip1.SetToolTip(bSearch, "Click on the search button");
+            toolTip1.IsBalloon = true;
         }
 
         private void tbInput_KeyPress(object sender, KeyPressEventArgs e)
@@ -125,6 +149,7 @@ namespace Maksymov_IKM_721B_project
         private void abouteProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             About A = new About();
+            A.progressBar1.Hide();
             A.ShowDialog();
         }
 

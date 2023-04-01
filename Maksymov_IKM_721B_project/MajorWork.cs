@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace Maksymov_IKM_721B_project
 {
@@ -19,8 +20,15 @@ namespace Maksymov_IKM_721B_project
         public bool Modify;
         private int Key;// pole kliucha
 
+        public Stack myStack = new Stack();
+        public string[] myArr = new string[100];
+
+        public Queue myQueue = new Queue();
+        public string[] smyQueue = new string[100];
+
         private string SaveFileName;// im’ia failu dlia zapysu
         private string OpenFileName;// im’ia failu dlia chytannia
+
         public void WriteSaveFileName(string S)// metod zapysu danykh v obiekt
         {
             this.SaveFileName = S;// zapamiataty im’ia failu dlia zapysu

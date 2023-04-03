@@ -48,6 +48,9 @@
             puskToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator4 = new ToolStripSeparator();
             proNakopychuvachiToolStripMenuItem = new ToolStripMenuItem();
+            tekstoviFailyToolStripMenuItem = new ToolStripMenuItem();
+            saveToolStripMenuItem2 = new ToolStripMenuItem();
+            saveAsToolStripMenuItem1 = new ToolStripMenuItem();
             referenceToolStripMenuItem = new ToolStripMenuItem();
             abouteProjectToolStripMenuItem = new ToolStripMenuItem();
             sfdSave = new SaveFileDialog();
@@ -74,6 +77,8 @@
             Peek_q = new Button();
             Dequeue = new Button();
             Enqueue = new Button();
+            richTextBox1 = new RichTextBox();
+            openToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwOpen).BeginInit();
             tabControl1.SuspendLayout();
@@ -203,7 +208,7 @@
             // 
             // работаToolStripMenuItem
             // 
-            работаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { puskToolStripMenuItem, toolStripSeparator4, proNakopychuvachiToolStripMenuItem });
+            работаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { puskToolStripMenuItem, toolStripSeparator4, proNakopychuvachiToolStripMenuItem, tekstoviFailyToolStripMenuItem });
             работаToolStripMenuItem.Name = "работаToolStripMenuItem";
             работаToolStripMenuItem.Size = new Size(47, 20);
             работаToolStripMenuItem.Text = "Work";
@@ -228,6 +233,27 @@
             proNakopychuvachiToolStripMenuItem.Size = new Size(182, 22);
             proNakopychuvachiToolStripMenuItem.Text = "Pro nakopychuvachi";
             proNakopychuvachiToolStripMenuItem.Click += proNakopychuvachiToolStripMenuItem_Click;
+            // 
+            // tekstoviFailyToolStripMenuItem
+            // 
+            tekstoviFailyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveToolStripMenuItem2, saveAsToolStripMenuItem1, openToolStripMenuItem });
+            tekstoviFailyToolStripMenuItem.Name = "tekstoviFailyToolStripMenuItem";
+            tekstoviFailyToolStripMenuItem.Size = new Size(182, 22);
+            tekstoviFailyToolStripMenuItem.Text = "Tekstovi faily";
+            // 
+            // saveToolStripMenuItem2
+            // 
+            saveToolStripMenuItem2.Name = "saveToolStripMenuItem2";
+            saveToolStripMenuItem2.Size = new Size(180, 22);
+            saveToolStripMenuItem2.Text = "Save";
+            saveToolStripMenuItem2.Click += saveToolStripMenuItem2_Click;
+            // 
+            // saveAsToolStripMenuItem1
+            // 
+            saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
+            saveAsToolStripMenuItem1.Size = new Size(180, 22);
+            saveAsToolStripMenuItem1.Text = "Save As";
+            saveAsToolStripMenuItem1.Click += saveAsToolStripMenuItem1_Click;
             // 
             // referenceToolStripMenuItem
             // 
@@ -258,12 +284,12 @@
             dgwOpen.Location = new Point(8, 19);
             dgwOpen.Name = "dgwOpen";
             dgwOpen.RowTemplate.Height = 25;
-            dgwOpen.Size = new Size(776, 150);
+            dgwOpen.Size = new Size(284, 150);
             dgwOpen.TabIndex = 4;
             // 
             // bSearch
             // 
-            bSearch.Location = new Point(8, 204);
+            bSearch.Location = new Point(8, 217);
             bSearch.Name = "bSearch";
             bSearch.Size = new Size(75, 23);
             bSearch.TabIndex = 5;
@@ -273,7 +299,7 @@
             // 
             // tbSearch
             // 
-            tbSearch.Location = new Point(8, 175);
+            tbSearch.Location = new Point(8, 188);
             tbSearch.Name = "tbSearch";
             tbSearch.Size = new Size(164, 23);
             tbSearch.TabIndex = 6;
@@ -313,6 +339,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(richTextBox1);
             tabPage2.Controls.Add(dgwOpen);
             tabPage2.Controls.Add(tbSearch);
             tabPage2.Controls.Add(bSearch);
@@ -475,6 +502,21 @@
             Enqueue.UseVisualStyleBackColor = true;
             Enqueue.Click += Enqueue_Click;
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(388, 97);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(100, 96);
+            richTextBox1.TabIndex = 7;
+            richTextBox1.Text = "";
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click_1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -554,5 +596,10 @@
         private Button Peek_q;
         private Button Dequeue;
         private Button Enqueue;
+        private ToolStripMenuItem tekstoviFailyToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem2;
+        private ToolStripMenuItem saveAsToolStripMenuItem1;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private RichTextBox richTextBox1;
     }
 }

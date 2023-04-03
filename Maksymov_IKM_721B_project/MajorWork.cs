@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Collections;
 
+
 namespace Maksymov_IKM_721B_project
 {
     internal class MajorWork
@@ -28,6 +29,25 @@ namespace Maksymov_IKM_721B_project
 
         private string SaveFileName;// im’ia failu dlia zapysu
         private string OpenFileName;// im’ia failu dlia chytannia
+
+        private string OpenTextFileName;
+        public void WriteOpenTextFileName(string S)
+        {
+            this.OpenTextFileName = S;
+        }
+
+        private string SaveTextFileName;// imia failu dlia zapysu tekstovoho failu
+        public void WriteSaveTextFileName(string S)
+        {
+            this.SaveTextFileName = S;
+        }
+
+        public bool SaveTextFileNameExists()
+        {
+            if (this.SaveTextFileName == null)
+                return false;
+            else return true;
+        }
 
         public void WriteSaveFileName(string S)// metod zapysu danykh v obiekt
         {
@@ -246,5 +266,40 @@ namespace Maksymov_IKM_721B_project
                 MessageBox.Show("Pomylka roboty z failom"); // Vyvedennia na ekran povidomlennia "Pomylka roboty z failom"
             }
         }
+
+        public void SaveToTextFile(string name, System.Windows.Forms.DataGridView D)
+        {
+            try
+            {
+                System.IO.StreamWriter textFile;
+                if (!File.Exists(name))
+                {
+                    textFile = new System.IO.StreamWriter(name);
+                }
+                else
+                {
+                    textFile = new System.IO.StreamWriter(name, true);
+                }
+                for (int i = 0; i < D.RowCount - 1; i++)
+                {
+                    textFile.WriteLine("{0};{1};{2}", D[0, i].Value.ToString(), D[1,
+
+                    i].Value.ToString(), D[2, i].Value.ToString());
+
+                }
+                textFile.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Pomylka roboty z failom ");
+            }
+        }
+
+        public string ReadSaveTextFileName()
+        {
+            return SaveTextFileName;
+        }
+
+
     }
 }

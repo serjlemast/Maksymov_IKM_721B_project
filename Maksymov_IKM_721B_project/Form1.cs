@@ -1,16 +1,20 @@
+using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+
 
 namespace Maksymov_IKM_721B_project
 {
     public partial class Form1 : Form
     {
         private bool Mode; // Rezhym dozvolu / zaborony vvedennia danykh
+        private SaveFileDialog sf;
         private MajorWork MajorObject; // Stvorennia obiekta klasu MajorWork
 
         ToolStripLabel dateLabel;
         ToolStripLabel timeLabel;
         ToolStripLabel infoLabel;
         System.Windows.Forms.Timer timer;
+
 
         public Form1()
         {
@@ -340,6 +344,40 @@ namespace Maksymov_IKM_721B_project
                 }
                 if (MajorObject.myQueue.Count == 0)
                     MessageBox.Show("\nOchered pustaia!");
+            }
+        }
+
+        private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sf = new SaveFileDialog();
+
+            sf.Filter = @"Текстовий файл (*.txt)|*.txt|Текстові файли TXT(*.txt)|*.txt|CSV-файл (*.csv)|*.csv|Bin-файл (*.bin)|*.bin";
+
+            if (sf.ShowDialog() == DialogResult.OK)
+            {
+                MajorObject.WriteSaveTextFileName(sf.FileName);
+                MajorObject.SaveToTextFile(sf.FileName, dgwOpen);
+            }
+        }
+
+        private void saveToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (MajorObject.SaveTextFileNameExists())
+
+                MajorObject.SaveToTextFile(MajorObject.ReadSaveTextFileName(), dgwOpen);
+            else
+                saveAsToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void openToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            OpenFileDialog o = new OpenFileDialog();
+
+            o.Filter = @"Tekstovyi file (*.txt)|*.txt|Tekstovyi file TXT(*.txt)|*.txt|CSV-file (*.csv)|*.csv|Bin-file (*.bin)|*.bin";
+
+            if (o.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox1.Text = File.ReadAllText(o.FileName, Encoding.Default);
             }
         }
     }

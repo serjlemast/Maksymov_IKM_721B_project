@@ -1,5 +1,6 @@
 using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using System.IO.Ports;
 
 
 namespace Maksymov_IKM_721B_project
@@ -15,7 +16,8 @@ namespace Maksymov_IKM_721B_project
         ToolStripLabel infoLabel;
         System.Windows.Forms.Timer timer;
 
-
+        string InputData = String.Empty;
+        delegate void SetTextCallback(string text);
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +31,23 @@ namespace Maksymov_IKM_721B_project
             timer = new System.Windows.Forms.Timer() { Interval = 1000 };
             timer.Tick += timer_Tick;
             timer.Start();
+        }
+
+        void AddData(string text)
+        {
+            listBox1.Items.Add(text);
+        }
+        private void SetText(string text)
+        {
+            if (this.listBox1.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.AddData(text);
+            }
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -100,6 +119,14 @@ namespace Maksymov_IKM_721B_project
 
             toolTip1.SetToolTip(bSearch, "Click on the search button");
             toolTip1.IsBalloon = true;
+
+            // отримуємо список СОМ портов системи
+            string[] ports = SerialPort.GetPortNames();
+            foreach (string port in ports)
+            {
+                comboBox1.Items.Add(port);
+            };
+
         }
 
         private void tbInput_KeyPress(object sender, KeyPressEventArgs e)
@@ -121,6 +148,8 @@ namespace Maksymov_IKM_721B_project
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Application.DoEvents();//Обробляє всі повідомлення Windows, які в даний момент // знаходяться в черзі повідомлень.
+
             string s;
             s = (System.DateTime.Now - MajorObject.GetTime()).ToString();
             MessageBox.Show(s, "Час роботи програми"); // Vyvedennia chasu roboty prohramy i povidomlennia "Chas roboty prohramy" na ekran\
@@ -380,5 +409,112 @@ namespace Maksymov_IKM_721B_project
                 richTextBox1.Text = File.ReadAllText(o.FileName, Encoding.Default);
             }
         }
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (button2.Text == "Start")
+
+            {
+                if (port.IsOpen) port.Close();
+                #region Задаем параметры порта
+                port.PortName = comboBox1.Text;
+                port.BaudRate = Convert.ToInt32(comboBox2.Text);
+                port.DataBits = Convert.ToInt32(comboBox3.Text);
+                switch (comboBox4.Text)
+                {
+                    case "space":
+                        port.Parity = Parity.Space;
+                        break;
+                    case "even":
+                        port.Parity = Parity.Even;
+                        break;
+                    case "odd":
+                        port.Parity = Parity.Odd;
+                        break;
+                    case "marker":
+                        port.Parity = Parity.Mark;
+                        break;
+                    default:
+                        port.Parity = Parity.None;
+                        break;
+                }
+                switch (comboBox5.Text)
+                {
+                    case "2":
+                        port.StopBits = StopBits.Two;
+                        break;
+                    case "1.5":
+                        port.StopBits = StopBits.OnePointFive;
+                        break;
+                    case "No":
+                        port.StopBits = StopBits.None;
+                        break;
+
+                    default:
+                        port.StopBits = StopBits.One;
+                        break;
+                }
+                switch (comboBox6.Text)
+                {
+                    case "Xon/Xoff":
+                        port.Handshake = Handshake.XOnXOff;
+                        break;
+                    case "Hardware":
+                        port.Handshake = Handshake.RequestToSend;
+                        break;
+                    default:
+                        port.Handshake = Handshake.None;
+                        break;
+                }
+                #endregion
+                try
+                {
+                    port.Open();
+                    button2.Text = "Stop";
+                    // button2.Enabled = false;
+                }
+                catch
+                {
+                    MessageBox.Show("Порт " + port.PortName + " неможливо відкрити!",
+
+                    "Помилка!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    comboBox1.SelectedText = "";
+                    button2.Text = "Start";
+                }
+            }
+            else
+            {
+                if (port.IsOpen) port.Close();
+                button2.Text = "Start";
+                // button2.Enabled = true;
+            }
+        }
+
+        private void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            InputData = port.ReadExisting();
+            if (InputData != String.Empty)
+            {
+                SetText(InputData);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text != "")
+
+            {
+                groupBox2.Enabled = true;
+                button2.Enabled = true;
+            }
+            else
+            {
+                groupBox2.Enabled = false;
+                button2.Enabled = false;
+            }
+        }
+
     }
 }

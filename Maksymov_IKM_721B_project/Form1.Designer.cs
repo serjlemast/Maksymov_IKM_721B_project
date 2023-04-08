@@ -1,4 +1,6 @@
-﻿namespace Maksymov_IKM_721B_project
+﻿using System.IO.Ports;
+
+namespace Maksymov_IKM_721B_project
 {
     partial class Form1
     {
@@ -29,6 +31,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.Text.ASCIIEncoding asciiEncodingSealed1 = new System.Text.ASCIIEncoding();
+            System.Text.DecoderReplacementFallback decoderReplacementFallback1 = new System.Text.DecoderReplacementFallback();
+            System.Text.EncoderReplacementFallback encoderReplacementFallback1 = new System.Text.EncoderReplacementFallback();
             label1 = new Label();
             bStart = new Button();
             tbInput = new TextBox();
@@ -51,6 +56,7 @@
             tekstoviFailyToolStripMenuItem = new ToolStripMenuItem();
             saveToolStripMenuItem2 = new ToolStripMenuItem();
             saveAsToolStripMenuItem1 = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
             referenceToolStripMenuItem = new ToolStripMenuItem();
             abouteProjectToolStripMenuItem = new ToolStripMenuItem();
             sfdSave = new SaveFileDialog();
@@ -63,6 +69,7 @@
             tabPage1 = new TabPage();
             statusStrip1 = new StatusStrip();
             tabPage2 = new TabPage();
+            richTextBox1 = new RichTextBox();
             tabPage3 = new TabPage();
             splitContainer1 = new SplitContainer();
             StackText = new Label();
@@ -77,8 +84,24 @@
             Peek_q = new Button();
             Dequeue = new Button();
             Enqueue = new Button();
-            richTextBox1 = new RichTextBox();
-            openToolStripMenuItem = new ToolStripMenuItem();
+            tabPage4 = new TabPage();
+            listBox1 = new ListBox();
+            groupBox2 = new GroupBox();
+            comboBox2 = new ComboBox();
+            comboBox6 = new ComboBox();
+            button2 = new Button();
+            label2 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            comboBox3 = new ComboBox();
+            label4 = new Label();
+            comboBox4 = new ComboBox();
+            label3 = new Label();
+            comboBox5 = new ComboBox();
+            groupBox1 = new GroupBox();
+            label7 = new Label();
+            comboBox1 = new ComboBox();
+            port = new SerialPort(components);
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwOpen).BeginInit();
             tabControl1.SuspendLayout();
@@ -89,6 +112,9 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            tabPage4.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -244,16 +270,23 @@
             // saveToolStripMenuItem2
             // 
             saveToolStripMenuItem2.Name = "saveToolStripMenuItem2";
-            saveToolStripMenuItem2.Size = new Size(180, 22);
+            saveToolStripMenuItem2.Size = new Size(114, 22);
             saveToolStripMenuItem2.Text = "Save";
             saveToolStripMenuItem2.Click += saveToolStripMenuItem2_Click;
             // 
             // saveAsToolStripMenuItem1
             // 
             saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            saveAsToolStripMenuItem1.Size = new Size(180, 22);
+            saveAsToolStripMenuItem1.Size = new Size(114, 22);
             saveAsToolStripMenuItem1.Text = "Save As";
             saveAsToolStripMenuItem1.Click += saveAsToolStripMenuItem1_Click;
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(114, 22);
+            openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click_1;
             // 
             // referenceToolStripMenuItem
             // 
@@ -309,6 +342,7 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Location = new Point(0, 27);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -350,6 +384,14 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Robota z failamy";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(388, 97);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(100, 96);
+            richTextBox1.TabIndex = 7;
+            richTextBox1.Text = "";
             // 
             // tabPage3
             // 
@@ -502,20 +544,185 @@
             Enqueue.UseVisualStyleBackColor = true;
             Enqueue.Click += Enqueue_Click;
             // 
-            // richTextBox1
+            // tabPage4
             // 
-            richTextBox1.Location = new Point(388, 97);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(100, 96);
-            richTextBox1.TabIndex = 7;
-            richTextBox1.Text = "";
+            tabPage4.Controls.Add(listBox1);
+            tabPage4.Controls.Add(groupBox2);
+            tabPage4.Controls.Add(groupBox1);
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Size = new Size(792, 394);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "Com Port";
+            tabPage4.UseVisualStyleBackColor = true;
             // 
-            // openToolStripMenuItem
+            // listBox1
             // 
-            openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
-            openToolStripMenuItem.Text = "Open";
-            openToolStripMenuItem.Click += openToolStripMenuItem_Click_1;
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(206, 3);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(583, 379);
+            listBox1.TabIndex = 13;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(comboBox2);
+            groupBox2.Controls.Add(comboBox6);
+            groupBox2.Controls.Add(button2);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(label6);
+            groupBox2.Controls.Add(label5);
+            groupBox2.Controls.Add(comboBox3);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(comboBox4);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(comboBox5);
+            groupBox2.Enabled = false;
+            groupBox2.Location = new Point(0, 96);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(200, 302);
+            groupBox2.TabIndex = 12;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Port settings";
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "75", "110", "134", "150", "300", "600", "1200", "1800", "2400", "4800", "7200", "9600", "14400", "19200", "38400", "57600", "115200", "128000" });
+            comboBox2.Location = new Point(6, 37);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(121, 23);
+            comboBox2.TabIndex = 14;
+            comboBox2.Text = "115200";
+            // 
+            // comboBox6
+            // 
+            comboBox6.FormattingEnabled = true;
+            comboBox6.Items.AddRange(new object[] { "Xon/Xoff", "Hardware", "No" });
+            comboBox6.Location = new Point(8, 213);
+            comboBox6.Name = "comboBox6";
+            comboBox6.Size = new Size(121, 23);
+            comboBox6.TabIndex = 5;
+            comboBox6.Text = "No";
+            // 
+            // button2
+            // 
+            button2.Enabled = false;
+            button2.Location = new Point(52, 268);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 13;
+            button2.Text = "Start";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 19);
+            label2.Name = "label2";
+            label2.Size = new Size(71, 15);
+            label2.TabIndex = 6;
+            label2.Text = "Speed(bit/s)";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(6, 195);
+            label6.Name = "label6";
+            label6.Size = new Size(84, 15);
+            label6.TabIndex = 10;
+            label6.Text = "Thread control";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(6, 151);
+            label5.Name = "label5";
+            label5.Size = new Size(59, 15);
+            label5.TabIndex = 9;
+            label5.Text = "Stop bites";
+            // 
+            // comboBox3
+            // 
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "4", "5", "6", "7", "8" });
+            comboBox3.Location = new Point(6, 81);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(121, 23);
+            comboBox3.TabIndex = 2;
+            comboBox3.Text = "8";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(6, 107);
+            label4.Name = "label4";
+            label4.Size = new Size(55, 15);
+            label4.TabIndex = 8;
+            label4.Text = "Evenness";
+            // 
+            // comboBox4
+            // 
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Items.AddRange(new object[] { "even", "", "odd", "", "no", "", "marker", "", "space" });
+            comboBox4.Location = new Point(6, 125);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(121, 23);
+            comboBox4.TabIndex = 3;
+            comboBox4.Text = "No";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(6, 63);
+            label3.Name = "label3";
+            label3.Size = new Size(48, 15);
+            label3.TabIndex = 7;
+            label3.Text = "Data bit";
+            // 
+            // comboBox5
+            // 
+            comboBox5.FormattingEnabled = true;
+            comboBox5.Items.AddRange(new object[] { "1", "1.5", "2", "No" });
+            comboBox5.Location = new Point(6, 169);
+            comboBox5.Name = "comboBox5";
+            comboBox5.Size = new Size(121, 23);
+            comboBox5.TabIndex = 4;
+            comboBox5.Text = "1";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Location = new Point(0, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(200, 87);
+            groupBox1.TabIndex = 11;
+            groupBox1.TabStop = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(22, 22);
+            label7.Name = "label7";
+            label7.Size = new Size(72, 15);
+            label7.TabIndex = 6;
+            label7.Text = "Choose port";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(22, 40);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(121, 23);
+            comboBox1.TabIndex = 0;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // port
+            // 
+            port.DataReceived += port_DataReceived;
             // 
             // Form1
             // 
@@ -545,6 +752,11 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -601,5 +813,23 @@
         private ToolStripMenuItem saveAsToolStripMenuItem1;
         private ToolStripMenuItem openToolStripMenuItem;
         private RichTextBox richTextBox1;
+        private TabPage tabPage4;
+        private ListBox listBox1;
+        private GroupBox groupBox2;
+        private Button button2;
+        private Label label2;
+        private ComboBox comboBox1;
+        private Label label6;
+        private Label label5;
+        private ComboBox comboBox3;
+        private Label label4;
+        private ComboBox comboBox4;
+        private Label label3;
+        private ComboBox comboBox5;
+        private GroupBox groupBox1;
+        private Label label7;
+        private ComboBox comboBox6;
+        private ComboBox comboBox2;
+        private System.IO.Ports.SerialPort port;
     }
 }

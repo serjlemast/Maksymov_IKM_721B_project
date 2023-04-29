@@ -133,6 +133,25 @@ namespace Maksymov_IKM_721B_project
         {
             tClock.Stop();
             tClock.Start();
+            if (tbInput.Text.Length > 99)
+            {
+                tClock.Stop();
+                MessageBox.Show("Zabagato symvoliv", "Pomylka");
+                tClock.Start();
+                e.KeyChar = (char)0;
+                tbInput.Text = tbInput.Text.Remove(tbInput.Text.Length - 1);
+            }
+            // Check if the entered key is a number
+            if (Char.IsDigit(e.KeyChar) && tbInput.Text.Length < 100)
+            {
+                // Append a comma to the current value of the text box
+                if (tbInput.Text.Length != 0 && !(tbInput.Text.EndsWith(',')))
+                {
+                    tbInput.Text += ",";
+                }
+                // Set the cursor position to the end of the text box
+                tbInput.SelectionStart = tbInput.Text.Length;
+            }
             if ((e.KeyChar >= '0') & (e.KeyChar <= '9') | (e.KeyChar == (char)8))
             {
                 return;

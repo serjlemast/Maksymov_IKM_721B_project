@@ -225,10 +225,24 @@ namespace Maksymov_IKM_721B_project
         }
         public void Task() // metod realizatsii prohramnoho zavdannia
         {
-            if (this.Data.Length > 5)
+            if (this.Data.Length > 0)
             {
-                this.Result = Convert.ToString(true);
+                string[] strArray = this.Data.Split(',');
+                int[] intArray = new int[strArray.Length];
+                int result = 0;
 
+                for (int i = 0; i < strArray.Length; i++)
+                {
+                    int.TryParse(strArray[i], out intArray[i]);
+                }
+                for(int i = 1; i < strArray.Length - 1; i++)
+                {
+                    if (intArray[i]> intArray[i-1] && intArray[i] > intArray[i + 1])
+                    {
+                        result++;
+                    }
+                }
+                this.Result = Convert.ToString(result);
             }
             else
             {

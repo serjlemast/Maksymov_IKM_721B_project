@@ -141,9 +141,9 @@ namespace Maksymov_IKM_721B_project
             // tbInput
             // 
             tbInput.Enabled = false;
-            tbInput.Location = new Point(92, 56);
+            tbInput.Location = new Point(43, 54);
             tbInput.Name = "tbInput";
-            tbInput.Size = new Size(100, 23);
+            tbInput.Size = new Size(335, 23);
             tbInput.TabIndex = 2;
             tbInput.TextChanged += textBox1_TextChanged;
             tbInput.KeyPress += tbInput_KeyPress;
@@ -722,6 +722,23 @@ namespace Maksymov_IKM_721B_project
             // 
             // port
             // 
+            port.BaudRate = 9600;
+            port.DataBits = 8;
+            port.DiscardNull = false;
+            port.DtrEnable = false;
+            port.Encoding = asciiEncodingSealed1;
+            port.Handshake = Handshake.None;
+            port.NewLine = "\n";
+            port.Parity = Parity.None;
+            port.ParityReplace = 63;
+            port.PortName = "COM1";
+            port.ReadBufferSize = 4096;
+            port.ReadTimeout = -1;
+            port.ReceivedBytesThreshold = 1;
+            port.RtsEnable = false;
+            port.StopBits = StopBits.One;
+            port.WriteBufferSize = 2048;
+            port.WriteTimeout = -1;
             port.DataReceived += port_DataReceived;
             // 
             // Form1
